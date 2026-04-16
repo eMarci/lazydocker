@@ -15,6 +15,7 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/jesseduffield/gocui"
 	"github.com/mattn/go-runewidth"
+        "github.com/Masterminds/sprig/v3"
 
 	// "github.com/jesseduffield/yaml"
 
@@ -239,7 +240,7 @@ func FormatDecimalBytes(b int) string {
 
 func ApplyTemplate(str string, object interface{}) string {
 	var buf bytes.Buffer
-	_ = template.Must(template.New("").Parse(str)).Execute(&buf, object)
+	_ = template.Must(template.New("").Funcs(sprig.FuncMap()).Parse(str)).Execute(&buf, object)
 	return buf.String()
 }
 
